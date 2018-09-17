@@ -3,7 +3,7 @@ Basic Installation
 
 Deploy content of wwww-folder to basic webserver.
 
-Use command "ionic build" in project root dir to rebuild after code changes.
+Use command "ionic build --prod" in project root dir to rebuild after code changes.
 
 
 PROJECT INFO
@@ -15,5 +15,5 @@ Ionic: 4.1.2
 
 Ionic CLI commands:
 ionic start qrreader sidemenu
-ionic generate page scanner
-ionic generate page result
+ionic generate page scanner --no-module
+ionic generate page result --no-module

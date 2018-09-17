@@ -1,10 +1,9 @@
 import {Component, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {ResultPage} from "../result/result";
 
 declare var QRReader;
 
-@IonicPage()
 @Component({
   selector: 'page-scanner',
   templateUrl: 'scanner.html',

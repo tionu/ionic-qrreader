@@ -5,7 +5,7 @@ Frameworks:
 - Ionic
 - Angular
 
-No Cordova dependencies required. Plain JS-Code using getUserMedia()-API.
+No Cordova dependencies required. Plain JS-code using getUserMedia()-API.
 
 Libs:
 - ZBar https://github.com/ZBar/ZBar

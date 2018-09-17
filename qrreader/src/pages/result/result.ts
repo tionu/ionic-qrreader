@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
-import {IonicPage, NavController, NavParams} from 'ionic-angular';
+import {NavController, NavParams} from 'ionic-angular';
 import {ScannerPage} from "../scanner/scanner";
 
-@IonicPage()
 @Component({
   selector: 'page-result',
   templateUrl: 'result.html',
@@ -15,8 +14,8 @@ export class ResultPage {
   }
 
   ionViewDidLoad() {
-    if (this.navParams.get('scanResult') != null) {
-      this.scanResult = "x" + this.navParams.get('scanResult') + "x";
+    if (!this.navParams.get('scanResult')) {
+      this.scanResult = this.navParams.get('scanResult');
     }
   }
 
