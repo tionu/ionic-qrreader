@@ -9,13 +9,11 @@ import {PersistenceProvider} from "../../providers/persistence/persistence";
 })
 export class ResultPage {
 
-  scanResults: String[];
-
   constructor(private persistence: PersistenceProvider, public navCtrl: NavController, public navParams: NavParams) {
+    this.persistence;
   }
 
   ionViewDidLoad() {
-    this.scanResults = this.persistence.getAllTransientTexts();
   }
 
   gotoScanner() {

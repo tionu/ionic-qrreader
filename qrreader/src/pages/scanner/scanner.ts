@@ -13,7 +13,6 @@ declare var QRReader;
 export class ScannerPage {
 
   log: String;
-  private cameraPermission: boolean;
   @ViewChild('displayScanAnimation') displayScanAnimation;
 
   constructor(private persistence: PersistenceProvider, public navCtrl: NavController, public navParams: NavParams) {
@@ -21,7 +20,7 @@ export class ScannerPage {
   }
 
   ionViewDidLoad() {
-    if (this.cameraPermission) {
+    if (this.persistence.properties['cameraPermission']) {
       this.scan();
     } else {
       this.checkCameraPermission();
@@ -29,7 +28,7 @@ export class ScannerPage {
   }
 
   ionViewWillLeave() {
-    if (QRReader.videoTag) {
+    if (QRReader.videoTag && QRReader.videoTag.srcObject) {
       QRReader.videoTag.srcObject.getTracks().forEach(track => track.stop());
       QRReader.videoTag.srcObject = null;
     }
@@ -42,7 +41,7 @@ export class ScannerPage {
       if (error) {
         this.log += "<br>QRReader: " + error;
       } else {
-        this.persistence.storeTransientText(result);
+        this.persistence.storeResult(result);
         this.navCtrl.setRoot(ResultPage);
       }
     });
@@ -54,12 +53,12 @@ export class ScannerPage {
   private checkCameraPermission() {
     navigator.mediaDevices.getUserMedia({video: true}).then((stream) => {
       stream.getTracks().forEach(track => track.stop());
-      this.cameraPermission = true;
+      this.persistence.properties['cameraPermission'] = true;
       this.scan();
     })
       .catch((error) => {
         this.log += "<br>Camera: " + error;
-        this.cameraPermission = false;
+        this.persistence.properties['cameraPermission'] = false;
       });
   }
 

@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card *ngFor="let text of this.persistence.getAllTransientTexts()">
+  <ion-card *ngFor="let result of this.persistence.getResults()">
     <ion-card-content>
-      {{text}}
+      {{result}}
     </ion-card-content>
   </ion-card>
   <div text-center>
