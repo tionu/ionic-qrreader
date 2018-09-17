@@ -1,0 +1,19 @@
+Basic Installation
+==================
+
+Deploy content of wwww-folder to basic webserver.
+
+Use command "ionic build" in project root dir to rebuild after code changes.
+
+
+PROJECT INFO
+==================
+
+IDE: Webstorm 2018.2.3
+NodeJS: v8.12.0
+Ionic: 4.1.2
+
+Ionic CLI commands:
+ionic start qrreader sidemenu
+ionic generate page scanner
+ionic generate page result
