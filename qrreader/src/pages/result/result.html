@@ -8,12 +8,9 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      Result:
-    </ion-card-header>
+  <ion-card *ngFor="let text of this.persistence.getAllTransientTexts()">
     <ion-card-content>
-      {{scanResult}}
+      {{text}}
     </ion-card-content>
   </ion-card>
   <div text-center>

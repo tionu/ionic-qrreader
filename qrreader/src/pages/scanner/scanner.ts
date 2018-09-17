@@ -1,6 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ResultPage} from "../result/result";
+import {PersistenceProvider} from "../../providers/persistence/persistence";
 
 declare var QRReader;
 
@@ -15,7 +16,7 @@ export class ScannerPage {
   private cameraPermission: boolean;
   @ViewChild('displayScanAnimation') displayScanAnimation;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private persistence: PersistenceProvider, public navCtrl: NavController, public navParams: NavParams) {
     this.log = "";
   }
 
@@ -41,7 +42,8 @@ export class ScannerPage {
       if (error) {
         this.log += "<br>QRReader: " + error;
       } else {
-        this.navCtrl.setRoot(ResultPage, {scanResult: result});
+        this.persistence.storeTransientText(result);
+        this.navCtrl.setRoot(ResultPage);
       }
     });
     setTimeout(() => {

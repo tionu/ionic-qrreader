@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {ScannerPage} from "../scanner/scanner";
+import {PersistenceProvider} from "../../providers/persistence/persistence";
 
 @Component({
   selector: 'page-result',
@@ -8,15 +9,13 @@ import {ScannerPage} from "../scanner/scanner";
 })
 export class ResultPage {
 
-  scanResult: String;
+  scanResults: String[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private persistence: PersistenceProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
-    if (!this.navParams.get('scanResult')) {
-      this.scanResult = this.navParams.get('scanResult');
-    }
+    this.scanResults = this.persistence.getAllTransientTexts();
   }
 
   gotoScanner() {

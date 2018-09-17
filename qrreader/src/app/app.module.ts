@@ -6,6 +6,7 @@ import {MyApp} from './app.component';
 import {HomePage} from '../pages/home/home';
 import {ScannerPage} from "../pages/scanner/scanner";
 import {ResultPage} from "../pages/result/result";
+import {PersistenceProvider} from '../providers/persistence/persistence';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {ResultPage} from "../pages/result/result";
     ResultPage
   ],
   providers: [
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PersistenceProvider
   ]
 })
 export class AppModule {
