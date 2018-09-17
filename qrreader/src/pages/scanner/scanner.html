@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Scanner</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <video autoplay></video>
+  <div class="scan-box">
+    <div class="scan-animation" #displayScanAnimation></div>
+  </div>
+  <div [innerHTML]="log"></div>
+</ion-content>

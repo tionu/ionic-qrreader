@@ -1,0 +1,22 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Result</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>
+      Result:
+    </ion-card-header>
+    <ion-card-content>
+      {{scanResult}}
+    </ion-card-content>
+  </ion-card>
+  <div text-center>
+    <button ion-button (click)='gotoScanner()'>Scan QR-Code</button>
+  </div>
+</ion-content>
