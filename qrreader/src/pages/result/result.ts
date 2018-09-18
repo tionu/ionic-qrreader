@@ -13,9 +13,6 @@ export class ResultPage {
     this.persistence;
   }
 
-  ionViewDidLoad() {
-  }
-
   gotoScanner() {
     this.navCtrl.push(ScannerPage);
   }

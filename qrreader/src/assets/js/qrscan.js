@@ -1,6 +1,7 @@
 let QRReader = {};
 
 QRReader.active = false;
+QRReader.animation = null;
 QRReader.videoTag = null;
 QRReader.canvas = null;
 QRReader.ctx = null;
@@ -10,6 +11,7 @@ QRReader.scan = function (callback) {
 
   let isMediaStreamAPISupported = navigator && navigator.mediaDevices && 'enumerateDevices' in navigator.mediaDevices;
   if (!isMediaStreamAPISupported) {
+    stopScan()
     callback('MediaStreamAPI not supported.', null);
   }
 
@@ -36,6 +38,7 @@ QRReader.scan = function (callback) {
       return constraints;
     })
       .catch(function (error) {
+        stopScan()
         callback(error, null);
       });
   }
@@ -45,8 +48,18 @@ QRReader.scan = function (callback) {
       .getUserMedia(constraints)
       .then(function (stream) {
         QRReader.videoTag.srcObject = stream;
+        QRReader.videoTag.setAttribute('playsinline', true);
+        QRReader.videoTag.setAttribute('controls', true);
+        setTimeout(() => {
+          document.querySelector('video').removeAttribute('controls');
+        });
+        decodeFrame();
+        setTimeout(function () {
+          QRReader.animation.style.display = 'block';
+        }, 500)
       })
       .catch(function (error) {
+        stopScan()
         callback(error, null);
       });
   }
@@ -68,15 +81,23 @@ QRReader.scan = function (callback) {
 
   function onDecoderMessage(message) {
     if (message.data.length > 0) {
-      QRReader.active = false;
-      QRReader.videoTag.srcObject.getTracks().forEach(track => track.stop());
-      QRReader.videoTag.srcObject = null;
+      stopScan();
       callback(null, message.data[0][2]);
     }
     setTimeout(decodeFrame, 0);
   }
 
-  QRReader.decoder = new Worker('/assets/js/zbar-decoder.min.js');
+  function stopScan() {
+    QRReader.active = false;
+    if (QRReader.videoTag && QRReader.videoTag.srcObject) {
+      QRReader.videoTag.srcObject.getTracks().forEach(track => track.stop());
+      QRReader.videoTag.srcObject = null;
+    }
+    QRReader.animation.style.display = 'none';
+  }
+
+  QRReader.decoder = new Worker('./assets/js/zbar-decoder.min.js');
+  QRReader.animation = document.getElementById('scan-animation');
   QRReader.videoTag = document.querySelector('video');
   QRReader.canvas = document.createElement('canvas');
   QRReader.ctx = QRReader.canvas.getContext('2d');
@@ -95,10 +116,10 @@ QRReader.scan = function (callback) {
     false
   );
 
+  QRReader.decoder.onmessage = onDecoderMessage;
+
   selectCamera().then((videoinput) => {
     startCapture(videoinput);
   });
 
-  QRReader.decoder.onmessage = onDecoderMessage;
-  decodeFrame();
 };

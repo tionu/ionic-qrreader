@@ -10,7 +10,7 @@ page-scanner {
     position: absolute;
   }
 
-  .scan-box {
+  #scan-box {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -22,7 +22,7 @@ page-scanner {
     border: 0;
   }
 
-  .scan-animation {
+  #scan-animation {
     width: 100%;
     height: 2px;
     background: #4CAF50;

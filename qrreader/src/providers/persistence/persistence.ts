@@ -4,12 +4,9 @@ import {Injectable} from '@angular/core';
 export class PersistenceProvider {
 
   results: String[];
-  properties: any;
-
 
   constructor() {
     this.results = [];
-    this.properties = {};
   }
 
   storeResult(text: String) {

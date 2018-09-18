@@ -9,7 +9,6 @@ import {ScannerPage} from "../scanner/scanner";
 export class HomePage {
 
   constructor(public navCtrl: NavController) {
-
   }
 
   gotoScanner() {
